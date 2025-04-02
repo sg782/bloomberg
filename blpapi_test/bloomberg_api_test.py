@@ -27,3 +27,5 @@ while True:
         print(msg)
     if ev.eventType() == blpapi.Event.RESPONSE:
         break
+
+
