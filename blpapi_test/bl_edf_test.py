@@ -24,8 +24,10 @@ def main():
     service = session.getService("//blp/mktnews")
     subscriptions = blpapi.SubscriptionList()
 
+    print("subs: ", subscriptions)
+
     # Subscribe to all headlines – customize as needed
-    subscriptions.add("NSEQN:IND",  # News headline source
+    subscriptions.add("AAPL",  # News headline source
                       "storyId, messageText",
                       "",
                       blpapi.CorrelationId("news_sub"))
