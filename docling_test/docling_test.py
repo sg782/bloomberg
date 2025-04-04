@@ -3,8 +3,9 @@ import csv
 import re
 
 # data 
+f = open('data.csv','a', newline='') #open the file immediately, sometimes the program fails on this line if the file is inaccessible
 
-source = "image.png"  # document per local path or URL
+source = "img.png"  # document per local path or URL
 converter = DocumentConverter()
 result = converter.convert(source)
 
@@ -14,7 +15,7 @@ def remove_extra_spaces(text):
     return ' '.join([word for word in text.split() if word])
 
 def is_invalid_charstring(text):
-    x = re.search("^[a-zA-Z1-9]", text)
+    x = re.search("[a-zA-Z1-9]", text)
     return(x is None)
 
 data = result.document.export_to_markdown()
@@ -33,15 +34,17 @@ for line in lines:
     if(len(shortest_component)==0): continue
 
     # issue 
-    if(any(is_invalid_charstring(x) for x in components)):continue
+    if(any(is_invalid_charstring(x) for x in components)):    
+        continue
 
     complete_lines.append(dict(zip(headers,components)))
 
     # we must remove the numbers
     
-f = open('data.csv','w')
+
 writer = csv.DictWriter(f, fieldnames=headers)
 writer.writeheader()
 writer.writerows(complete_lines)
 
 
+f.close()
